@@ -1,6 +1,7 @@
 {
-  "generated_at": "2026-10-30T22:45:00.000Z",
-  "node": "#124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026",
+  "generated_at": "2026-10-30T22:47:27.215Z",
+  "node": "v24.19.0",
+  "kernel": "6.8.0-124-generic",
   "machine": {
     "cpus": 4,
     "mem_gb": 3.6
@@ -18,31 +19,31 @@
   },
   "samples": 5,
   "naive_full_scan": {
-    "min_ms": 364.219,
-    "median_ms": 373.829,
-    "p95_ms": 375.294,
-    "stddev_ms": 4.775,
-    "rel_stddev_pct": 1.29,
-    "per_plane_ms": 5.841
+    "min_ms": 369.128,
+    "median_ms": 370.857,
+    "p95_ms": 375.095,
+    "stddev_ms": 2.359,
+    "rel_stddev_pct": 0.63,
+    "per_plane_ms": 5.795
   },
   "bvh_indexed": {
-    "min_ms": 46.884,
-    "median_ms": 49.907,
-    "p95_ms": 60.552,
-    "stddev_ms": 5.225,
-    "rel_stddev_pct": 10.06,
-    "per_plane_ms": 0.78
+    "min_ms": 47.302,
+    "median_ms": 49.717,
+    "p95_ms": 67.311,
+    "stddev_ms": 7.509,
+    "rel_stddev_pct": 14,
+    "per_plane_ms": 0.777
   },
   "bvh_build": {
-    "min_ms": 668.85,
-    "median_ms": 691.556,
-    "p95_ms": 718.566,
-    "stddev_ms": 16.236,
-    "rel_stddev_pct": 2.34
+    "min_ms": 681.74,
+    "median_ms": 712.743,
+    "p95_ms": 720.837,
+    "stddev_ms": 14.849,
+    "rel_stddev_pct": 2.1
   },
-  "cold_start_build_plus_first_sweep_ms": 809.857,
-  "speedup_steady_state": 7.49,
-  "speedup_amortized_with_build": 0.5,
+  "cold_start_build_plus_first_sweep_ms": 795.159,
+  "speedup_steady_state": 7.46,
+  "speedup_amortized_with_build": 0.49,
   "correctness": {
     "areas_identical": true,
     "segments": 65536,

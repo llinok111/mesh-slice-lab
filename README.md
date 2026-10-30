@@ -1,6 +1,6 @@
 # mesh-slice-lab
 
-**Slicing a 261,120-triangle mesh at 64 heights takes 373.8 ms with a full triangle scan and 49.9 ms with a BVH index — 7.49× faster per slice (5.841 ms → 0.780 ms), with every contour closed and the cross-section area within 0.243 % of the analytic sphere section.**
+**Slicing a 261,120-triangle mesh at 64 heights takes 370.9 ms with a full triangle scan and 49.7 ms with a BVH index — 7.46× faster per slice (5.795 ms → 0.777 ms), with every contour closed and the cross-section area within 0.243 % of the analytic sphere section.**
 
 The baseline is `sliceMesh(..., index = null)` in `src/core.mjs`: the identical clipping and stitching code, minus the index. Nothing else differs, so the ratio isolates the acceleration structure.
 
@@ -35,22 +35,22 @@ Drag to orbit, move the slider to move the cutting plane, switch between the sph
 
 ## Evidence
 
-`bench/result.json`, Node v24.19.0, 4 CPUs / 3.6 GB, 5 samples per variant after one warmup:
+`bench/result.json`, `process.version` v24.19.0, 4 CPUs / 3.6 GB, 5 samples per variant after one warmup:
 
 | | full scan | BVH indexed | |
 | --- | --- | --- | --- |
-| median, 64 planes | 373.829 ms | 49.907 ms | **7.49×** |
-| per plane | 5.841 ms | 0.780 ms | |
+| median, 64 planes | 370.857 ms | 49.717 ms | **7.46×** |
+| per plane | 5.795 ms | 0.777 ms | |
 | triangles tested | 16,711,680 | 281,259 | −98.3 % |
-| stddev | 1.29 % | 10.06 % | |
-| cold start (build + first sweep) | — | 809.857 ms | |
-| index build, median | — | 691.556 ms | |
+| stddev | 0.63 % | 14.00 % | |
+| cold start (build + first sweep) | — | 795.159 ms | |
+| index build, median | — | 712.743 ms | |
 
-The BVH build costs 691.6 ms, so it only pays for itself once you need more than **137 slices** of this mesh (`691.556 / (5.841 − 0.780)`). Below that, the full scan is the better choice — the amortised ratio over 64 planes is 0.50× and `bench/result.json` reports it as `speedup_amortized_with_build` rather than hiding it.
+The BVH build costs 712.7 ms, so the index only breaks even at around **142 slices** of this mesh (`712.743 / (5.795 − 0.777) = 142.0`). Below that the full scan is the better choice — the amortised ratio over 64 planes is 0.49× and `bench/result.json` reports it as `speedup_amortized_with_build` rather than hiding it.
 
-The 10.06 % relative stddev on the BVH variant is above the 10 % threshold: at 0.78 ms per plane the sweep is dominated by GC pauses and JIT warm-up on a 3.6 GB shared box, and `min_ms` (46.884 ms) versus `p95_ms` (60.552 ms) shows the spread. The median is quoted, not the minimum.
+The 14.00 % relative stddev on the BVH variant is the weakest number here: at 0.78 ms per plane the sweep is dominated by GC pauses and JIT noise on a 3.6 GB shared box, and `min_ms` (47.302 ms) versus `p95_ms` (67.311 ms) shows the spread. The median is quoted, not the minimum. Re-running on a clean clone gave 6.66× and 7.46× on two consecutive runs, so treat the headline as ~7× rather than a precise constant.
 
-`node bench/verify.mjs` — 18 assertions, all measured values printed:
+`node bench/verify.mjs` — 18 assertions, all measured values printed (the 0.243 % figure below comes from this run, not from `bench/result.json`):
 
 ```
 cube area == 4.0                     area=4.000000000

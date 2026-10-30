@@ -2,7 +2,7 @@
 // bench/bench.mjs — warmup + 5 timed repeats, cold start recorded separately.
 // Writes bench/result.json; README quotes these numbers verbatim.
 import { writeFileSync } from "node:fs";
-import { cpus, totalmem, version } from "node:os";
+import { cpus, totalmem, release } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { makePlane, sliceMesh, buildBVH } from "../src/core.mjs";
@@ -74,7 +74,8 @@ const naive = stats(naiveRuns), bvh = stats(bvhRuns), build = stats(buildRuns);
 const coldTotal = coldMs;
 const result = {
   generated_at: new Date().toISOString(),
-  node: version(),
+  node: process.version,
+  kernel: release(),
   machine: { cpus: cpus().length, mem_gb: +(totalmem() / 2 ** 30).toFixed(1) },
   workload: {
     mesh: "uvSphere(512,256) from src/shapes.mjs",
