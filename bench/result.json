@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-10-30T22:45:00.000Z",
+  "node": "#124-Ubuntu SMP PREEMPT_DYNAMIC Tue May 26 13:00:45 UTC 2026",
+  "machine": {
+    "cpus": 4,
+    "mem_gb": 3.6
+  },
+  "workload": {
+    "mesh": "uvSphere(512,256) from src/shapes.mjs",
+    "triangles": 261120,
+    "vertices": 131841,
+    "planes": 64,
+    "plane_axis": "y",
+    "heights": [
+      -0.95,
+      0.95
+    ]
+  },
+  "samples": 5,
+  "naive_full_scan": {
+    "min_ms": 364.219,
+    "median_ms": 373.829,
+    "p95_ms": 375.294,
+    "stddev_ms": 4.775,
+    "rel_stddev_pct": 1.29,
+    "per_plane_ms": 5.841
+  },
+  "bvh_indexed": {
+    "min_ms": 46.884,
+    "median_ms": 49.907,
+    "p95_ms": 60.552,
+    "stddev_ms": 5.225,
+    "rel_stddev_pct": 10.06,
+    "per_plane_ms": 0.78
+  },
+  "bvh_build": {
+    "min_ms": 668.85,
+    "median_ms": 691.556,
+    "p95_ms": 718.566,
+    "stddev_ms": 16.236,
+    "rel_stddev_pct": 2.34
+  },
+  "cold_start_build_plus_first_sweep_ms": 809.857,
+  "speedup_steady_state": 7.49,
+  "speedup_amortized_with_build": 0.5,
+  "correctness": {
+    "areas_identical": true,
+    "segments": 65536,
+    "candidates_naive": 16711680,
+    "candidates_bvh": 281259,
+    "candidate_reduction_pct": 98.3,
+    "open_chains": 0
+  }
+}

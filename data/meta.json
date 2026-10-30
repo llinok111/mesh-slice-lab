@@ -1,0 +1,21 @@
+{
+  "generator": "tools/gen-sample.mjs",
+  "deterministic": true,
+  "note": "bench builds its 261k-triangle sphere in memory from src/shapes.mjs; no large file is committed",
+  "files": [
+    {
+      "file": "sphere.gltf",
+      "triangles": 9024,
+      "vertices": 4753,
+      "bytes": 221069,
+      "sha256": "3ca290d179f14af6"
+    },
+    {
+      "file": "torus.gltf",
+      "triangles": 6144,
+      "vertices": 3201,
+      "bytes": 150252,
+      "sha256": "9d82feb36711fb2f"
+    }
+  ]
+}

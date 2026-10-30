@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>mesh-slice-lab — plane/mesh cross-section</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #0b0e14; color: #dbe2ef;
+    font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  #app { position: fixed; inset: 0; }
+  canvas { display: block; }
+  #hud { position: fixed; top: 16px; left: 16px; padding: 14px 16px; width: 300px;
+    background: rgba(15, 20, 30, .82); border: 1px solid #263043; border-radius: 10px;
+    backdrop-filter: blur(6px); }
+  h1 { margin: 0 0 2px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: #7fd1ff; }
+  .sub { margin: 0 0 12px; color: #6b7a94; font-size: 11px; }
+  label { display: block; color: #93a2bd; font-size: 11px; margin-bottom: 4px; }
+  input[type=range] { width: 100%; accent-color: #7fd1ff; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  td { padding: 2px 0; }
+  td:last-child { text-align: right; color: #e8eefc; font-variant-numeric: tabular-nums; }
+  .k { color: #6b7a94; }
+  #err { position: fixed; inset: 0; display: none; place-items: center; text-align: center; padding: 40px; }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.169.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="hud">
+  <h1>mesh-slice-lab</h1>
+  <p class="sub">plane × mesh cross-section, stitched contours</p>
+  <label for="h">slice height <span id="hv">0.00</span></label>
+  <input id="h" type="range" min="-1.2" max="1.2" step="0.01" value="0.35" />
+  <label for="pick" style="margin-top:10px">mesh</label>
+  <select id="pick" style="width:100%;background:#121826;color:#dbe2ef;border:1px solid #263043;border-radius:6px;padding:4px">
+    <option value="sphere">sphere (9,024 tris)</option>
+    <option value="torus">torus (6,144 tris)</option>
+  </select>
+  <table>
+    <tr><td class="k">contours</td><td id="s-loops">–</td></tr>
+    <tr><td class="k">area</td><td id="s-area">–</td></tr>
+    <tr><td class="k">perimeter</td><td id="s-per">–</td></tr>
+    <tr><td class="k">open chains</td><td id="s-open">–</td></tr>
+    <tr><td class="k">triangles tested</td><td id="s-cand">–</td></tr>
+    <tr><td class="k">slice time</td><td id="s-ms">–</td></tr>
+  </table>
+</div>
+<div id="err">WebGL is unavailable in this browser.</div>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
